@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Vitality Workbook — 5 Pillars of Health, Energy & Purpose</title>
+  <meta name="description" content="A 30-Day System for Building Your Foundation. Transform your energy, health, and purpose with the 5 Pillars framework.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">VITALITY</a>
+      <div class="nav-links">
+        <a href="#pillars">The 5 Pillars</a>
+        <a href="#author">About</a>
+        <a href="#inside">What's Inside</a>
+        <a href="#testimonials">Reviews</a>
+      </div>
+      <a href="#cta-final" class="nav-cta">Get Your Copy</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#pillars">The 5 Pillars</a>
+      <a href="#author">About</a>
+      <a href="#inside">What's Inside</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#cta-final" class="nav-cta">Get Your Copy</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-content">
+      <div class="hero-text">
+        <p class="hero-eyebrow reveal">A 30-Day Transformation System</p>
+        <h1 class="hero-title reveal">
+          Stop Living at<br>
+          <span class="hero-accent">50% Capacity.</span>
+        </h1>
+        <p class="hero-subtitle reveal">
+          The Vitality Workbook gives you the exact 5-pillar framework to rebuild your energy, sharpen your focus, and reclaim your health — in just 30 days.
+        </p>
+        <div class="hero-actions reveal">
+          <a href="#cta-final" class="btn btn-primary btn-lg">
+            Get Your Copy
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#pillars" class="btn btn-ghost btn-lg">Explore the 5 Pillars</a>
+        </div>
+        <div class="hero-proof reveal">
+          <div class="hero-stat">
+            <span class="hero-stat-number">5</span>
+            <span class="hero-stat-label">Science-Backed Pillars</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-number">30</span>
+            <span class="hero-stat-label">Day Tracking System</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-number">100%</span>
+            <span class="hero-stat-label">Actionable Framework</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <div class="book-mockup">
+          <div class="book-cover">
+            <div class="book-cover-inner">
+              <p class="book-tag">THE</p>
+              <h2 class="book-title">VITALITY</h2>
+              <p class="book-sub">WORKBOOK</p>
+              <div class="book-divider"></div>
+              <p class="book-desc">5 Pillars of Health,<br>Energy & Purpose</p>
+              <p class="book-footer">A 30-Day System</p>
+            </div>
+          </div>
+          <div class="book-spine"></div>
+          <div class="book-shadow"></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-indicator">
+        <div class="scroll-dot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points -->
+  <section class="pain-section">
+    <div class="container">
+      <div class="pain-grid">
+        <div class="pain-left reveal">
+          <p class="section-eyebrow">Sound Familiar?</p>
+          <h2 class="section-title">You've tried everything.<br>Nothing sticks.</h2>
+        </div>
+        <div class="pain-right">
+          <div class="pain-card reveal">
+            <div class="pain-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18.364 5.636a9 9 0 11-12.728 0"/><path d="M12 9v4l3 3"/></svg>
+            </div>
+            <div>
+              <h3>Afternoon crashes & brain fog</h3>
+              <p>You rely on caffeine to get through the day, only to crash harder each time.</p>
+            </div>
+          </div>
+          <div class="pain-card reveal">
+            <div class="pain-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+            </div>
+            <div>
+              <h3>Wired but tired</h3>
+              <p>Running on cortisol all day, can't sleep at night. The cycle never breaks.</p>
+            </div>
+          </div>
+          <div class="pain-card reveal">
+            <div class="pain-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 15s1.5-2 4-2 4 2 4 2"/><path d="M9 9h.01M15 9h.01"/></svg>
+            </div>
+            <div>
+              <h3>Nothing sticks</h3>
+              <p>New diet, new app, new routine. You start strong, then fall off by week two.</p>
+            </div>
+          </div>
+          <div class="pain-card reveal">
+            <div class="pain-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <div>
+              <h3>Disconnected & drifting</h3>
+              <p>You're going through the motions but feel disconnected from purpose and people.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pain-bridge reveal">
+        <p>The problem isn't discipline. It's that you're fixing a leaking ship by changing the color of the paint.</p>
+        <p class="pain-bridge-bold">You don't need another hack. You need a <em>foundation</em>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pillars -->
+  <section class="pillars-section" id="pillars">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-eyebrow">The Framework</p>
+        <h2 class="section-title">5 Pillars That Change Everything</h2>
+        <p class="section-desc">When these five areas are in sync, they create a synergistic explosion of energy. Each pillar strengthens the others.</p>
+      </div>
+      <div class="pillars-grid">
+        <div class="pillar-card reveal" data-pillar="1">
+          <div class="pillar-number">01</div>
+          <div class="pillar-icon-wrap">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h3>Community</h3>
+          <p>Strong social bonds increase resilience, lower inflammation, and help you stay consistent. People with meaningful connection live longer.</p>
+          <div class="pillar-stat">
+            <span class="pillar-stat-num">50%</span>
+            <span class="pillar-stat-label">increase in survival rates with strong social connection</span>
+          </div>
+        </div>
+        <div class="pillar-card reveal" data-pillar="2">
+          <div class="pillar-number">02</div>
+          <div class="pillar-icon-wrap">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><path d="M6 1v3M10 1v3M14 1v3"/></svg>
+          </div>
+          <h3>Nutrition</h3>
+          <p>Food is information for your cells. The right nutrition reduces inflammation, balances hormones, and fuels sustainable energy all day.</p>
+          <div class="pillar-stat">
+            <span class="pillar-stat-num">80%</span>
+            <span class="pillar-stat-label">of chronic disease linked to lifestyle and nutrition choices</span>
+          </div>
+        </div>
+        <div class="pillar-card reveal" data-pillar="3">
+          <div class="pillar-number">03</div>
+          <div class="pillar-icon-wrap">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          </div>
+          <h3>Movement</h3>
+          <p>Consistency matters more than intensity. Daily movement boosts mood, sharpens focus, builds resilience, and improves every other pillar.</p>
+          <div class="pillar-stat">
+            <span class="pillar-stat-num">10min</span>
+            <span class="pillar-stat-label">of daily walking creates a cascade of positive changes</span>
+          </div>
+        </div>
+        <div class="pillar-card reveal" data-pillar="4">
+          <div class="pillar-number">04</div>
+          <div class="pillar-icon-wrap">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </div>
+          <h3>Sleep</h3>
+          <p>Sleep is your body's highest-performance state. It affects every other pillar simultaneously and creates the fastest visible results.</p>
+          <div class="pillar-stat">
+            <span class="pillar-stat-num">7-9hrs</span>
+            <span class="pillar-stat-label">optimal sleep improves insulin, hormones, mood & recovery</span>
+          </div>
+        </div>
+        <div class="pillar-card reveal" data-pillar="5">
+          <div class="pillar-number">05</div>
+          <div class="pillar-icon-wrap">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>De-Stress</h3>
+          <p>Stress isn't the enemy — chronic stress without recovery is. Train your nervous system to recover faster and stay grounded longer.</p>
+          <div class="pillar-stat">
+            <span class="pillar-stat-num">2min</span>
+            <span class="pillar-stat-label">of slow breathing measurably lowers cortisol levels</span>
+          </div>
+        </div>
+      </div>
+      <div class="pillars-synergy reveal">
+        <div class="synergy-visual">
+          <div class="synergy-ring">
+            <div class="synergy-node" style="--i:0">C</div>
+            <div class="synergy-node" style="--i:1">N</div>
+            <div class="synergy-node" style="--i:2">M</div>
+            <div class="synergy-node" style="--i:3">S</div>
+            <div class="synergy-node" style="--i:4">D</div>
+            <div class="synergy-center">V</div>
+          </div>
+        </div>
+        <div class="synergy-text">
+          <h3>They Work Together</h3>
+          <p>Better sleep reduces stress. Lower stress improves nutrition choices. Better nutrition improves energy for movement. Movement improves mood and sleep. Community support accelerates everything.</p>
+          <p class="synergy-highlight">Start anywhere — it all compounds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Author -->
+  <section class="author-section" id="author">
+    <div class="container">
+      <div class="author-grid">
+        <div class="author-image-wrap reveal">
+          <div class="author-image">
+            <div class="author-placeholder">
+              <div class="author-initials">TD</div>
+            </div>
+          </div>
+        </div>
+        <div class="author-text reveal">
+          <p class="section-eyebrow">The Story Behind The Book</p>
+          <h2 class="section-title">From NFL Dreams to Finding the Foundation</h2>
+          <p>I had the engine of a Ferrari but the maintenance schedule of a junker. When my NFL dreams fell short, I didn't just lose a career — I lost my identity.</p>
+          <p>For years I was a "former athlete" drifting through life. I tried changing my diet, hitting the gym harder, working more. But nothing stuck.</p>
+          <p>Then came 2020. Trapped in Bali as the world shut down, I was forced into a radical confrontation with myself. I stopped looking for shortcuts and started looking at the <strong>foundation</strong>.</p>
+          <p>Over a decade of searching — and that intense year of isolation — I distilled life down to five essential pillars. When these five areas synced, my entire reality shifted. My focus sharpened. My relationships healed. My fitness reached levels I hadn't seen since my playing days.</p>
+          <blockquote class="author-quote">
+            "I wrote this book because I don't want you to spend a decade lost like I was."
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Inside -->
+  <section class="inside-section" id="inside">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-eyebrow">What You Get</p>
+        <h2 class="section-title">Everything Inside The Workbook</h2>
+        <p class="section-desc">This isn't a book you read and forget. It's a system you <em>work through</em>.</p>
+      </div>
+      <div class="inside-phases">
+        <div class="phase-card reveal">
+          <div class="phase-badge">Phase 1</div>
+          <h3>Your Baseline</h3>
+          <p>Map where you are today — your health snapshot, your "why," your obstacles, and starting-point ratings across all five pillars.</p>
+          <ul class="phase-list">
+            <li>Health & lifestyle assessment</li>
+            <li>Deep "why" discovery exercise</li>
+            <li>Obstacle identification & solutions</li>
+            <li>5-pillar self-rating baseline</li>
+            <li>Personal commitment statement</li>
+          </ul>
+        </div>
+        <div class="phase-card reveal">
+          <div class="phase-badge">Phase 2</div>
+          <h3>The Five Pillars</h3>
+          <p>Each pillar follows the same proven structure: narrative, self-assessment, inventory, tiered action steps, and a structured action plan.</p>
+          <ul class="phase-list">
+            <li>Science-backed education per pillar</li>
+            <li>Detailed self-assessments & inventories</li>
+            <li>Beginner / Intermediate / Advanced lanes</li>
+            <li>Easy wins you can start today</li>
+            <li>30-day commitment per pillar</li>
+          </ul>
+        </div>
+        <div class="phase-card reveal">
+          <div class="phase-badge">Phase 3</div>
+          <h3>30-Day Tracking</h3>
+          <p>Weekly trackers and check-ins that make your progress visible and help you adjust in real time.</p>
+          <ul class="phase-list">
+            <li>Weekly habit tracking grids</li>
+            <li>Guided reflection prompts</li>
+            <li>Progress scoring system</li>
+            <li>Before/after comparison</li>
+            <li>Letter to your future self</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transformation -->
+  <section class="transform-section">
+    <div class="container">
+      <div class="transform-grid reveal">
+        <div class="transform-col transform-before">
+          <h3>Before The Workbook</h3>
+          <ul>
+            <li>Afternoon crashes & brain fog</li>
+            <li>Wired but tired — running on cortisol</li>
+            <li>Starting strong, quitting by week 2</li>
+            <li>Disconnected from purpose & people</li>
+            <li>Fixing symptoms, not the root</li>
+            <li>Living at 50% capacity</li>
+          </ul>
+        </div>
+        <div class="transform-arrow">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="transform-col transform-after">
+          <h3>After 30 Days</h3>
+          <ul>
+            <li>Steady energy from morning to night</li>
+            <li>Deep, restorative sleep</li>
+            <li>Habits that feel automatic</li>
+            <li>Meaningful connection & support</li>
+            <li>A foundation that compounds</li>
+            <li>Showing up as your highest self</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof / Testimonials -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-eyebrow">What Readers Are Saying</p>
+        <h2 class="section-title">Real People. Real Results.</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"I've bought dozens of wellness books. This is the first one I actually <em>finished</em>. The structure keeps you accountable without feeling overwhelming."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">M</div>
+            <div>
+              <strong>Marcus T.</strong>
+              <span>Former D1 Athlete</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"The 5 pillars framework changed how I think about health. It's not about perfection — it's about building a system. Week 3 was the turning point for me."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">S</div>
+            <div>
+              <strong>Sarah K.</strong>
+              <span>Busy Mom of 3</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"I was the 'wired but tired' guy running on coffee and willpower. After 30 days, I wake up without an alarm and actually feel rested. Game changer."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">J</div>
+            <div>
+              <strong>James R.</strong>
+              <span>Tech Executive</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marginal Gains -->
+  <section class="gains-section">
+    <div class="container">
+      <div class="gains-content reveal">
+        <p class="section-eyebrow">The 1% Principle</p>
+        <h2 class="section-title">Small Changes. Massive Results.</h2>
+        <p>When Sir Dave Brailsford took over British Cycling, he focused on improving many small things by just 1%. Those incremental improvements added up to <strong>8 Olympic gold medals</strong> in both 2008 and 2012.</p>
+        <p>Your health works the same way. You don't need perfection. You need <em>momentum</em>.</p>
+        <div class="gains-rule">
+          <div class="gains-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <p><strong>The Two-Day Rule:</strong> It's okay to miss a day here and there. Just try not to miss two days in a row.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-eyebrow">Questions</p>
+        <h2 class="section-title">Frequently Asked</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <button class="faq-trigger">
+            <span>Who is this workbook for?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq-content">
+            <p>Whether you're a former athlete, a burnt-out professional, or someone who feels like they're living at 50% capacity — this workbook is your roadmap back to your highest self. It's built for anyone ready to stop relying on luck and start building a real foundation.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-trigger">
+            <span>How long does it take to complete?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq-content">
+            <p>The workbook is designed as a 30-day system, but it's not a race. You can move through it at your own pace. Most people spend 15-20 minutes per day on the exercises and tracking.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-trigger">
+            <span>Do I need to follow the pillars in order?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq-content">
+            <p>Most people get the best results by moving through pillars 1 through 5 in order — the sequence builds momentum and stacks results. But if you know which pillar needs the most work, you can jump straight there. Start anywhere — it all compounds.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-trigger">
+            <span>What if I've tried other wellness programs before?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq-content">
+            <p>Most programs focus on one thing — a diet, a workout plan, a meditation app. This workbook addresses the whole ecosystem. The 5 pillars work synergistically, so improvements in one area amplify every other area. That's why this sticks when other things haven't.</p>
+          </div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-trigger">
+            <span>Is this based on real science?</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="faq-content">
+            <p>Every pillar is backed by peer-reviewed research — from the Harvard Adult Development Study on community, to UCLA's social genomics research, to the latest sleep and stress science. The workbook cites specific studies throughout so you understand <em>why</em> each pillar matters.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="cta-section" id="cta-final">
+    <div class="container">
+      <div class="cta-content reveal">
+        <p class="section-eyebrow">Your Foundation Starts Here</p>
+        <h2 class="cta-title">Stop Painting the Ship.<br>Fix the Foundation.</h2>
+        <p class="cta-desc">The Vitality Workbook is your 30-day system for rebuilding energy, health, and purpose from the ground up. Five pillars. One workbook. A lifetime of results.</p>
+        <a href="#" class="btn btn-primary btn-xl">
+          Get Your Copy Now
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <p class="cta-guarantee">30-Day Money Back Guarantee. No questions asked.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="footer-logo">VITALITY</span>
+          <p>5 Pillars of Health, Energy & Purpose</p>
+        </div>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+      <div class="footer-disclaimer">
+        <p>This workbook is for educational purposes only and is not intended to replace professional medical advice. Always consult with a healthcare provider before making changes to your diet, exercise, or health routine.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
