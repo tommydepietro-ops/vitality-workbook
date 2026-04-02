@@ -133,9 +133,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.5 });
   statNums.forEach(el => countObserver.observe(el));
 
-  // --- Intake Form → Kit (ConvertKit) ---
+  // --- Intake Form → Kit + Direct Access ---
   const KIT_API_KEY = '6cWlVer1x9yz_uoHTEMWAg';
   const KIT_TAG_ID = '18718148';
+  const WORKBOOK_URL = 'https://web-app-sage-eight-23.vercel.app';
 
   const intakeForm = document.getElementById('intake-form');
   const intakeSuccess = document.getElementById('intake-success');
@@ -157,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
       intakeSubmit.disabled = true;
       intakeSubmit.textContent = 'Sending...';
 
-      // Send to Kit (ConvertKit)
+      // Send to Kit (ConvertKit) for your subscriber list
       fetch('https://api.convertkit.com/v3/tags/' + KIT_TAG_ID + '/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -168,14 +169,8 @@ document.addEventListener('DOMContentLoaded', () => {
           fields: { last_name: lastName }
         })
       })
-      .then(function(res) { return res.json(); })
-      .then(function() {
-        // Show success, hide form
-        intakeForm.style.display = 'none';
-        intakeSuccess.style.display = 'block';
-      })
-      .catch(function() {
-        // Even if API fails, show success (don't block the user)
+      .finally(function() {
+        // Show success with direct link (regardless of Kit result)
         intakeForm.style.display = 'none';
         intakeSuccess.style.display = 'block';
       });
