@@ -133,9 +133,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.5 });
   statNums.forEach(el => countObserver.observe(el));
 
-  // --- Intake Form ---
+  // --- Intake Form → Kit (ConvertKit) ---
+  const KIT_API_KEY = '6cWlVer1x9yz_uoHTEMWAg';
+  const KIT_TAG_ID = '18718148';
+
   const intakeForm = document.getElementById('intake-form');
   const intakeSuccess = document.getElementById('intake-success');
+  const intakeSubmit = document.getElementById('intake-submit');
 
   if (intakeForm) {
     intakeForm.addEventListener('submit', function(e) {
@@ -149,19 +153,32 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Store locally (you can later connect this to a backend/email service)
-      const leads = JSON.parse(localStorage.getItem('vitality_leads') || '[]');
-      leads.push({
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        submittedAt: new Date().toISOString()
-      });
-      localStorage.setItem('vitality_leads', JSON.stringify(leads));
+      // Disable button while submitting
+      intakeSubmit.disabled = true;
+      intakeSubmit.textContent = 'Sending...';
 
-      // Show success, hide form
-      intakeForm.style.display = 'none';
-      intakeSuccess.style.display = 'block';
+      // Send to Kit (ConvertKit)
+      fetch('https://api.convertkit.com/v3/tags/' + KIT_TAG_ID + '/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          api_key: KIT_API_KEY,
+          email: email,
+          first_name: firstName,
+          fields: { last_name: lastName }
+        })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function() {
+        // Show success, hide form
+        intakeForm.style.display = 'none';
+        intakeSuccess.style.display = 'block';
+      })
+      .catch(function() {
+        // Even if API fails, show success (don't block the user)
+        intakeForm.style.display = 'none';
+        intakeSuccess.style.display = 'block';
+      });
     });
   }
 
