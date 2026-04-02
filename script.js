@@ -150,7 +150,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const lastName = document.getElementById('intake-last').value.trim();
       const email = document.getElementById('intake-email').value.trim();
 
-      if (!firstName || !lastName || !email || !email.includes('@')) {
+      // Validate all fields
+      if (!firstName || !lastName) {
+        alert('Please enter your first and last name.');
+        intakeSubmit.disabled = false;
+        return;
+      }
+
+      // Real email validation
+      var emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+      if (!email || !emailRegex.test(email)) {
+        alert('Please enter a valid email address.');
+        intakeSubmit.disabled = false;
         return;
       }
 
