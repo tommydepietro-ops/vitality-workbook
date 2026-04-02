@@ -133,10 +133,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.5 });
   statNums.forEach(el => countObserver.observe(el));
 
-  // --- Intake Form → Kit + Direct Access ---
+  // --- Intake Form → Google Apps Script (auto-email) + Kit (subscriber list) ---
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzmqdPqZ9QnKxDBdaljIgtaw3g8kWPV6gbqQVGsr4SrMBNk4BT2kzv-KMiFY-qDsyWZHg/exec';
   const KIT_API_KEY = '6cWlVer1x9yz_uoHTEMWAg';
   const KIT_TAG_ID = '18718148';
-  const WORKBOOK_URL = 'https://web-app-sage-eight-23.vercel.app';
 
   const intakeForm = document.getElementById('intake-form');
   const intakeSuccess = document.getElementById('intake-success');
@@ -153,7 +153,6 @@ document.addEventListener('DOMContentLoaded', () => {
       // Validate all fields
       if (!firstName || !lastName) {
         alert('Please enter your first and last name.');
-        intakeSubmit.disabled = false;
         return;
       }
 
@@ -161,7 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
       var emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
       if (!email || !emailRegex.test(email)) {
         alert('Please enter a valid email address.');
-        intakeSubmit.disabled = false;
         return;
       }
 
@@ -169,7 +167,24 @@ document.addEventListener('DOMContentLoaded', () => {
       intakeSubmit.disabled = true;
       intakeSubmit.textContent = 'Sending...';
 
-      // Send to Kit (ConvertKit) for your subscriber list
+      // Send to Google Apps Script (adds to sheet + sends email)
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          email: email
+        })
+      })
+      .finally(function() {
+        // Show success message
+        intakeForm.style.display = 'none';
+        intakeSuccess.style.display = 'block';
+      });
+
+      // Also send to Kit for subscriber list (fire and forget)
       fetch('https://api.convertkit.com/v3/tags/' + KIT_TAG_ID + '/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -179,12 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
           first_name: firstName,
           fields: { last_name: lastName }
         })
-      })
-      .finally(function() {
-        // Show success with direct link (regardless of Kit result)
-        intakeForm.style.display = 'none';
-        intakeSuccess.style.display = 'block';
-      });
+      }).catch(function() {});
     });
   }
 
