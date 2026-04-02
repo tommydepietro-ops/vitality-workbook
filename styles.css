@@ -1163,21 +1163,21 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
 }
 .intake-form input {
   padding: 14px 18px;
-  border: 2px solid rgba(255,255,255,0.2);
+  border: 2px solid #d4cdc4;
   border-radius: 12px;
-  background: rgba(255,255,255,0.08);
-  color: #fff;
+  background: #fff;
+  color: #1E1E1E;
   font-family: 'Inter', sans-serif;
   font-size: 15px;
   outline: none;
-  transition: border-color 0.2s, background 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 .intake-form input::placeholder {
-  color: rgba(255,255,255,0.5);
+  color: #999;
 }
 .intake-form input:focus {
   border-color: #E8734A;
-  background: rgba(255,255,255,0.12);
+  box-shadow: 0 0 0 3px rgba(232, 115, 74, 0.15);
 }
 .intake-btn {
   margin-top: 4px;
@@ -1186,7 +1186,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
 }
 .intake-privacy {
   font-size: 12px;
-  color: rgba(255,255,255,0.4);
+  color: #999;
   margin-top: 8px;
   text-align: center;
 }
@@ -1200,17 +1200,17 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
 .intake-success-box h3 {
   font-family: 'Playfair Display', serif;
   font-size: 28px;
-  color: #fff;
+  color: #1E1E1E;
   margin-bottom: 12px;
 }
 .intake-success-box p {
-  color: rgba(255,255,255,0.8);
+  color: #555;
   font-size: 16px;
   line-height: 1.6;
 }
 .intake-success-note {
   font-size: 13px !important;
-  color: rgba(255,255,255,0.4) !important;
+  color: #999 !important;
   margin-top: 12px;
 }
 @media (max-width: 480px) {
