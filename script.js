@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
   statNums.forEach(el => countObserver.observe(el));
 
   // --- Intake Form → Google Apps Script (auto-email) + Kit (subscriber list) ---
-  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzmqdPqZ9QnKxDBdaljIgtaw3g8kWPV6gbqQVGsr4SrMBNk4BT2kzv-KMiFY-qDsyWZHg/exec';
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyUXdrmtlaAknLFrt00uUcRG_zs9_xhClR6SIi9xOmvbovKRXoSmkrpkmfYDpirx-8lcg/exec';
   const KIT_API_KEY = '6cWlVer1x9yz_uoHTEMWAg';
   const KIT_TAG_ID = '18718148';
 
