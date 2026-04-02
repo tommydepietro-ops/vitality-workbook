@@ -476,12 +476,31 @@
       <div class="cta-content reveal">
         <p class="section-eyebrow">Your Foundation Starts Here</p>
         <h2 class="cta-title">Stop Painting the Ship.<br>Fix the Foundation.</h2>
-        <p class="cta-desc">The Vitality Workbook is your 30-day system for rebuilding energy, health, and purpose from the ground up. Five pillars. One workbook. A lifetime of results.</p>
-        <a href="#" class="btn btn-primary btn-xl">
-          Get Your Copy Now
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <p class="cta-guarantee">30-Day Money Back Guarantee. No questions asked.</p>
+        <p class="cta-desc">Enter your name and email below and we'll send you the interactive workbook and a printable PDF copy — straight to your inbox.</p>
+
+        <!-- Intake Form -->
+        <form id="intake-form" class="intake-form" onsubmit="return false;">
+          <div class="intake-row">
+            <input type="text" id="intake-first" placeholder="First Name" required />
+            <input type="text" id="intake-last" placeholder="Last Name" required />
+          </div>
+          <input type="email" id="intake-email" placeholder="Email Address" required />
+          <button type="submit" class="btn btn-primary btn-xl intake-btn" id="intake-submit">
+            Get Your Free Copy
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <p class="intake-privacy">We respect your privacy. No spam, ever.</p>
+        </form>
+
+        <!-- Success message (hidden by default) -->
+        <div id="intake-success" style="display: none;">
+          <div class="intake-success-box">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#E8734A" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <h3>You're In!</h3>
+            <p>Check your inbox — your interactive workbook link and printable PDF are on the way.</p>
+            <p class="intake-success-note">Don't see it? Check your spam folder.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>

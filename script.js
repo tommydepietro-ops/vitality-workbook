@@ -133,4 +133,36 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.5 });
   statNums.forEach(el => countObserver.observe(el));
 
+  // --- Intake Form ---
+  const intakeForm = document.getElementById('intake-form');
+  const intakeSuccess = document.getElementById('intake-success');
+
+  if (intakeForm) {
+    intakeForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const firstName = document.getElementById('intake-first').value.trim();
+      const lastName = document.getElementById('intake-last').value.trim();
+      const email = document.getElementById('intake-email').value.trim();
+
+      if (!firstName || !lastName || !email || !email.includes('@')) {
+        return;
+      }
+
+      // Store locally (you can later connect this to a backend/email service)
+      const leads = JSON.parse(localStorage.getItem('vitality_leads') || '[]');
+      leads.push({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        submittedAt: new Date().toISOString()
+      });
+      localStorage.setItem('vitality_leads', JSON.stringify(leads));
+
+      // Show success, hide form
+      intakeForm.style.display = 'none';
+      intakeSuccess.style.display = 'block';
+    });
+  }
+
 });
