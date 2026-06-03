@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vitality Audit — Find Your Energy Leaks</title>
+  <meta name="description" content="Assess your wellness foundation across the 5 Pillars of Health, Energy & Purpose. Get your personalized Vitality Score and a 30-day action plan.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Styling tokens matching vitalityworkbook.com */
+    :root {
+      --color-bg: #F7F6F3;
+      --color-surface: #FFFFFF;
+      --color-text: #2D2D2D;
+      --color-text-secondary: #555555;
+      --color-text-muted: #888888;
+      --color-accent: #FF6B4A;
+      --color-accent-light: #FF8266;
+      --color-accent-pale: #FFF0EC;
+      --color-accent-glow: rgba(255, 107, 74, 0.12);
+      --color-border: #E5E4E0;
+      --color-border-light: #EEEDEA;
+      
+      --color-community: #8FAE8B; /* Sage Green */
+      --color-nutrition: #EAA850; /* Warm Gold */
+      --color-movement: #5C93B4; /* Slate Blue */
+      --color-sleep: #7D6FB8;    /* Indigo */
+      --color-stress: #D96B6B;   /* Rust Red */
+      
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: rgba(247, 246, 243, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    .back-btn {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .back-btn:hover {
+      color: var(--color-accent);
+    }
+
+    main {
+      flex: 1;
+      max-width: 720px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Container Card */
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border-light);
+      border-radius: 24px;
+      padding: 48px 40px;
+      box-shadow: 0 10px 40px rgba(45, 45, 45, 0.04);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.5s var(--ease-out);
+    }
+
+    @media (max-width: 580px) {
+      .card {
+        padding: 32px 20px;
+        border-radius: 20px;
+      }
+      main {
+        padding: 20px 16px 60px;
+      }
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      margin-bottom: 32px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .progress-container.visible {
+      opacity: 1;
+    }
+    .progress-track {
+      height: 6px;
+      background: var(--color-border-light);
+      border-radius: 100px;
+      overflow: hidden;
+      position: relative;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--color-accent);
+      width: 0%;
+      border-radius: 100px;
+      transition: width 0.4s var(--ease-out);
+    }
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Views */
+    .view {
+      display: none;
+    }
+    .view.active {
+      display: block;
+      animation: fadeIn 0.6s var(--ease-out) forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 1. Landing View */
+    .landing-view {
+      text-align: center;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      background: var(--color-accent-pale);
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+    .title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 36px;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .pillars-teaser {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      max-width: 480px;
+      margin: 0 auto 40px;
+    }
+    .teaser-node {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 10px 4px;
+      border-radius: 12px;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border-light);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .teaser-node svg {
+      width: 18px;
+      height: 18px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--color-accent);
+      color: #FFFFFF;
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 18px 36px;
+      border: none;
+      border-radius: 100px;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(255, 107, 74, 0.25);
+      transition: all 0.3s var(--ease-out);
+      text-decoration: none;
+      width: 100%;
+      max-width: 280px;
+    }
+    .btn:hover {
+      background: var(--color-accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(255, 107, 74, 0.35);
+    }
+    .btn svg {
+      transition: transform 0.3s var(--ease-out);
+    }
+    .btn:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* 2. Quiz View */
+    .question-category {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .category-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .question-text {
+      font-family: var(--font-serif);
+      font-size: clamp(1.4rem, 4vw, 1.8rem);
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 32px;
+      color: var(--color-text);
+    }
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .option-card {
+      background: var(--color-surface);
+      border: 1.5px solid var(--color-border);
+      border-radius: 16px;
+      padding: 20px 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-align: left;
+      transition: all 0.25s var(--ease-out);
+    }
+    .option-card:hover {
+      border-color: var(--color-accent);
+      background: var(--color-accent-pale);
+    }
+    .option-card.selected {
+      border-color: var(--color-accent);
+      background: var(--color-accent-pale);
+      box-shadow: 0 4px 12px var(--color-accent-glow);
+    }
+    .option-indicator {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .option-card:hover .option-indicator {
+      border-color: var(--color-accent);
+    }
+    .option-card.selected .option-indicator {
+      border-color: var(--color-accent);
+      background: var(--color-accent);
+    }
+    .option-card.selected .option-indicator::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: #FFFFFF;
+      border-radius: 50%;
+    }
+    .option-text-content {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--color-text);
+    }
+
+    /* 3. Lead Capture View */
+    .lead-view {
+      text-align: center;
+    }
+    .lead-icon-box {
+      width: 72px;
+      height: 72px;
+      background: var(--color-accent-pale);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-accent);
+      margin: 0 auto 28px;
+    }
+    .lead-view p.lead-desc {
+      color: var(--color-text-secondary);
+      font-size: 1.05rem;
+      margin-bottom: 32px;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      margin-bottom: 8px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 16px 20px;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      border: 1.5px solid var(--color-border);
+      border-radius: 12px;
+      background: var(--color-bg);
+      color: var(--color-text);
+      outline: none;
+      transition: all 0.3s;
+    }
+    .form-control:focus {
+      border-color: var(--color-accent);
+      background: #FFFFFF;
+      box-shadow: 0 0 0 4px var(--color-accent-glow);
+    }
+    .form-privacy {
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+      margin-top: 16px;
+    }
+
+    /* 4. Results View */
+    .results-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .score-circle-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+    .score-radial {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      margin-bottom: 20px;
+    }
+    .score-radial svg {
+      width: 160px;
+      height: 160px;
+      transform: rotate(-90deg);
+    }
+    .score-radial circle {
+      fill: none;
+      stroke-width: 12;
+    }
+    .score-radial-bg {
+      stroke: var(--color-border-light);
+    }
+    .score-radial-fill {
+      stroke: var(--color-accent);
+      stroke-dasharray: 440;
+      stroke-dashoffset: 440;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1.5s ease-out;
+    }
+    .score-radial-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .score-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--color-text);
+      line-height: 1;
+    }
+    .score-pct {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .score-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-top: 4px;
+    }
+    .score-message h3 {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+    }
+    .score-message p {
+      color: var(--color-text-secondary);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* Pillars breakdown list */
+    .pillars-breakdown {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .breakdown-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 8px;
+    }
+    .pillar-row {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border-light);
+      border-radius: 16px;
+      padding: 16px 20px;
+    }
+    .pillar-row-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .pillar-row-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pillar-row-color-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .pillar-row-score {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .pillar-row-track {
+      height: 6px;
+      background: var(--color-border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .pillar-row-fill {
+      height: 100%;
+      border-radius: 10px;
+      width: 0%;
+      transition: width 1.2s ease-out;
+    }
+
+    /* Personalized Recommendation */
+    .rec-box {
+      background: var(--color-accent-pale);
+      border: 1px solid rgba(255, 107, 74, 0.15);
+      border-radius: 20px;
+      padding: 28px;
+      margin-top: 16px;
+    }
+    .rec-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .rec-title {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .rec-desc {
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 20px;
+    }
+    .rec-challenge {
+      background: var(--color-surface);
+      border-radius: 12px;
+      padding: 16px;
+      border-left: 4px solid var(--color-accent);
+      font-size: 0.925rem;
+    }
+    .rec-challenge strong {
+      display: block;
+      color: var(--color-text);
+      margin-bottom: 4px;
+    }
+
+    /* Final action */
+    .cta-box {
+      text-align: center;
+      padding-top: 24px;
+      border-top: 1px solid var(--color-border-light);
+    }
+    .cta-box p {
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 24px;
+    }
+    .cta-box .btn {
+      max-width: 320px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+      border-top: 1px solid var(--color-border-light);
+      margin-top: auto;
+    }
+    footer a {
+      color: var(--color-text-secondary);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="#" class="logo">VITALITY</a>
+      <a href="http://vitalityworkbook.com" class="back-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Website
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Progress Indicator -->
+    <div class="progress-container" id="progress-container">
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-text">
+        <span id="progress-step-text">Question 1 of 15</span>
+        <span id="progress-category-text">Community</span>
+      </div>
+    </div>
+
+    <!-- MAIN CARD -->
+    <div class="card">
+      
+      <!-- 1. LANDING VIEW -->
+      <div class="view active" id="view-landing">
+        <div class="landing-view">
+          <span class="badge">Vitality Diagnostic</span>
+          <h1 class="title">Are you operating at 50% capacity?</h1>
+          <p class="subtitle">Take this 3-minute diagnostic to audit your health foundation across the 5 Pillars of Vitality and unlock your personalized 30-day starter plan.</p>
+          
+          <div class="pillars-teaser">
+            <div class="teaser-node" style="color: var(--color-community)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/></svg>
+              <span>Social</span>
+            </div>
+            <div class="teaser-node" style="color: var(--color-nutrition)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg>
+              <span>Fuel</span>
+            </div>
+            <div class="teaser-node" style="color: var(--color-movement)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+              <span>Move</span>
+            </div>
+            <div class="teaser-node" style="color: var(--color-sleep)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+              <span>Sleep</span>
+            </div>
+            <div class="teaser-node" style="color: var(--color-stress)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Stress</span>
+            </div>
+          </div>
+
+          <button class="btn" id="start-btn">
+            Start the Audit
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. QUIZ VIEW -->
+      <div class="view" id="view-quiz">
+        <div class="question-category" id="question-category">
+          <span class="category-dot" id="category-dot"></span>
+          <span id="category-name">Community</span>
+        </div>
+        <h2 class="question-text" id="question-text">Question text goes here?</h2>
+        <div class="options-grid" id="options-grid">
+          <!-- Options injected dynamically -->
+        </div>
+      </div>
+
+      <!-- 3. LEAD CAPTURE VIEW -->
+      <div class="view" id="view-lead">
+        <div class="lead-view">
+          <div class="lead-icon-box">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h2 class="title">Audit Complete!</h2>
+          <p class="lead-desc">Enter your details below to calculate your Vitality Capacity score and unlock your customized 5-pillar breakdown and 30-day starter plan.</p>
+          
+          <form id="lead-form" onsubmit="return false;">
+            <div style="display: flex; gap: 16px; margin-bottom: 20px; max-width: 400px; margin-left: auto; margin-right: auto;">
+              <div style="flex: 1; text-align: left;">
+                <label for="lead-first" style="display: block; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-text-secondary); margin-bottom: 8px;">First Name</label>
+                <input type="text" id="lead-first" class="form-control" placeholder="First" required />
+              </div>
+              <div style="flex: 1; text-align: left;">
+                <label for="lead-last" style="display: block; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-text-secondary); margin-bottom: 8px;">Last Name</label>
+                <input type="text" id="lead-last" class="form-control" placeholder="Last" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="lead-email">Email Address</label>
+              <input type="email" id="lead-email" class="form-control" placeholder="you@example.com" required />
+            </div>
+            <button type="submit" class="btn" id="submit-lead-btn" style="margin-top: 12px;">
+              Get My Score
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <p class="form-privacy">We respect your privacy. No spam, ever. Results are calculated instantly.</p>
+          </form>
+        </div>
+      </div>
+
+      <!-- 4. RESULTS VIEW -->
+      <div class="view" id="view-results">
+        <div class="results-grid">
+          
+          <!-- Radial Score Section -->
+          <div class="score-circle-wrapper">
+            <div class="score-radial">
+              <svg>
+                <circle class="score-radial-bg" cx="80" cy="80" r="70"></circle>
+                <circle class="score-radial-fill" id="score-ring" cx="80" cy="80" r="70"></circle>
+              </svg>
+              <div class="score-radial-text">
+                <span class="score-number" id="score-num">0</span>
+                <span class="score-label">Capacity</span>
+              </div>
+            </div>
+            <div class="score-message">
+              <h3 id="result-greeting">Hey Name, here is your Vitality Snapshot</h3>
+              <p id="result-interpretation">You are running on moderate energy but experiencing regular crashes. Let's fix the foundation.</p>
+            </div>
+          </div>
+
+          <!-- Pillars Progress Bars -->
+          <div class="pillars-breakdown">
+            <h4 class="breakdown-title">Your 5-Pillar Scorecard</h4>
+            
+            <!-- Community Row -->
+            <div class="pillar-row">
+              <div class="pillar-row-header">
+                <span class="pillar-row-name" style="color: var(--color-community)">
+                  <span class="pillar-row-color-dot" style="background-color: var(--color-community)"></span>
+                  Community
+                </span>
+                <span class="pillar-row-score" id="score-community-text">0 / 30</span>
+              </div>
+              <div class="pillar-row-track">
+                <div class="pillar-row-fill" id="fill-community" style="background-color: var(--color-community)"></div>
+              </div>
+            </div>
+
+            <!-- Nutrition Row -->
+            <div class="pillar-row">
+              <div class="pillar-row-header">
+                <span class="pillar-row-name" style="color: var(--color-nutrition)">
+                  <span class="pillar-row-color-dot" style="background-color: var(--color-nutrition)"></span>
+                  Nutrition
+                </span>
+                <span class="pillar-row-score" id="score-nutrition-text">0 / 30</span>
+              </div>
+              <div class="pillar-row-track">
+                <div class="pillar-row-fill" id="fill-nutrition" style="background-color: var(--color-nutrition)"></div>
+              </div>
+            </div>
+
+            <!-- Movement Row -->
+            <div class="pillar-row">
+              <div class="pillar-row-header">
+                <span class="pillar-row-name" style="color: var(--color-movement)">
+                  <span class="pillar-row-color-dot" style="background-color: var(--color-movement)"></span>
+                  Movement
+                </span>
+                <span class="pillar-row-score" id="score-movement-text">0 / 30</span>
+              </div>
+              <div class="pillar-row-track">
+                <div class="pillar-row-fill" id="fill-movement" style="background-color: var(--color-movement)"></div>
+              </div>
+            </div>
+
+            <!-- Sleep Row -->
+            <div class="pillar-row">
+              <div class="pillar-row-header">
+                <span class="pillar-row-name" style="color: var(--color-sleep)">
+                  <span class="pillar-row-color-dot" style="background-color: var(--color-sleep)"></span>
+                  Sleep
+                </span>
+                <span class="pillar-row-score" id="score-sleep-text">0 / 30</span>
+              </div>
+              <div class="pillar-row-track">
+                <div class="pillar-row-fill" id="fill-sleep" style="background-color: var(--color-sleep)"></div>
+              </div>
+            </div>
+
+            <!-- Stress Row -->
+            <div class="pillar-row">
+              <div class="pillar-row-header">
+                <span class="pillar-row-name" style="color: var(--color-stress)">
+                  <span class="pillar-row-color-dot" style="background-color: var(--color-stress)"></span>
+                  De-Stress
+                </span>
+                <span class="pillar-row-score" id="score-stress-text">0 / 30</span>
+              </div>
+              <div class="pillar-row-track">
+                <div class="pillar-row-fill" id="fill-stress" style="background-color: var(--color-stress)"></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Personalized Recommendation Box -->
+          <div class="rec-box">
+            <span class="rec-eyebrow">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Primary Energy Leak Identified
+            </span>
+            <h4 class="rec-title" id="rec-title">Your Sleep pillar needs immediate repair</h4>
+            <p class="rec-desc" id="rec-desc">When sleep is compromised, it causes a cascading failure across nutrition, movement, and stress recovery. Addressing sleep is your fastest path to increasing your energy.</p>
+            
+            <div class="rec-challenge">
+              <strong id="rec-challenge-title">The Screen-Free Wind Down Challenge:</strong>
+              <span id="rec-challenge-desc">Turn off all screens (phone, laptop, TV) 30 minutes before your target bedtime. Replace it with 10 pages of a fiction book or simple light stretching. Complete this for 5 of the next 7 days.</span>
+            </div>
+          </div>
+
+          <!-- CTA to buy workbook -->
+          <div class="cta-box">
+            <p>Ready to rebuild your foundation? The full <strong>Vitality Workbook</strong> includes guided assessments, action protocols for all 5 pillars, and a physical tracker to sustain your progress.</p>
+            <a href="http://vitalityworkbook.com#cta-final" class="btn">
+              Get the Vitality Workbook
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Vitality. Built in alignment with <a href="http://vitalityworkbook.com">vitalityworkbook.com</a>.</p>
+  </footer>
+
+  <script>
+    // Quiz configuration and data
+    const categories = {
+      COMMUNITY: { name: 'Community', color: 'var(--color-community)' },
+      NUTRITION: { name: 'Nutrition', color: 'var(--color-nutrition)' },
+      MOVEMENT: { name: 'Movement', color: 'var(--color-movement)' },
+      SLEEP: { name: 'Sleep', color: 'var(--color-sleep)' },
+      STRESS: { name: 'De-Stress', color: 'var(--color-stress)' }
+    };
+
+    const questions = [
+      // Community (0, 1, 2)
+      {
+        category: categories.COMMUNITY,
+        text: "Do you have a core circle of friends or family you can call in a crisis without hesitation?",
+        options: [
+          { text: "Yes, absolutely — I have multiple people I trust completely.", points: 10 },
+          { text: "I have 1 or 2 people, but we are not always in close contact.", points: 5 },
+          { text: "Honestly, I feel quite isolated right now.", points: 0 }
+        ]
+      },
+      {
+        category: categories.COMMUNITY,
+        text: "How often do you engage in meaningful, face-to-face social connection (outside of professional work)?",
+        options: [
+          { text: "Multiple times a week (meals, sports, group activities).", points: 10 },
+          { text: "Once a week or bi-weekly.", points: 5 },
+          { text: "Rarely or only once a month.", points: 0 }
+        ]
+      },
+      {
+        category: categories.COMMUNITY,
+        text: "Do you feel a deep sense of belonging and support in your day-to-day life?",
+        options: [
+          { text: "Yes, I feel integrated with a community or supportive group.", points: 10 },
+          { text: "Somewhat — I have touchpoints but feel somewhat disconnected.", points: 5 },
+          { text: "No, I feel mostly disconnected from the people around me.", points: 0 }
+        ]
+      },
+      // Nutrition (3, 4, 5)
+      {
+        category: categories.NUTRITION,
+        text: "How often do you experience physical energy crashes or brain fog 1 to 2 hours after meals?",
+        options: [
+          { text: "Rarely — my energy remains stable and clean.", points: 10 },
+          { text: "Occasionally, particularly after heavy lunches or treats.", points: 5 },
+          { text: "Almost every single day — I regularly need caffeine to push through.", points: 0 }
+        ]
+      },
+      {
+        category: categories.NUTRITION,
+        text: "What percentage of your daily food intake consists of unprocessed, single-ingredient whole foods?",
+        options: [
+          { text: "High percentage (80%+) — lots of plants, clean proteins, and healthy fats.", points: 10 },
+          { text: "Moderate percentage (40% to 79%) — a mix of whole foods and convenience meals.", points: 5 },
+          { text: "Under 40% — I rely heavily on takeout, pre-packaged foods, or snacks.", points: 0 }
+        ]
+      },
+      {
+        category: categories.NUTRITION,
+        text: "How consistent are your eating times, and do you feel in control of your daily cravings?",
+        options: [
+          { text: "Very consistent routine, and cravings are rare or easily managed.", points: 10 },
+          { text: "Somewhat consistent, but I struggle with evening snacks or sugar cravings.", points: 5 },
+          { text: "Extremely erratic eating patterns, and constant strong cravings.", points: 0 }
+        ]
+      },
+      // Movement (6, 7, 8)
+      {
+        category: categories.MOVEMENT,
+        text: "How much active, continuous physical movement (like walking, running, gym, sports) do you get daily?",
+        options: [
+          { text: "30 minutes or more of consistent movement.", points: 10 },
+          { text: "10 to 29 minutes (usually walking or light tasks).", points: 5 },
+          { text: "Less than 10 minutes total — I sit for almost the entire day.", points: 0 }
+        ]
+      },
+      {
+        category: categories.MOVEMENT,
+        text: "How would you rate your daily physical energy, joint mobility, and body stiffness?",
+        options: [
+          { text: "Excellent — I feel springy, flexible, and mostly pain-free.", points: 10 },
+          { text: "Average — I have some persistent stiffness or low-grade aches.", points: 5 },
+          { text: "Poor — I feel heavy, very stiff, or deal with chronic joint issues.", points: 0 }
+        ]
+      },
+      {
+        category: categories.MOVEMENT,
+        text: "How consistently do you deliberately exercise or do mobility work throughout the week?",
+        options: [
+          { text: "4 or more times a week, and it feels like a solid habit.", points: 10 },
+          { text: "1 to 3 times a week, but it feels inconsistent.", points: 5 },
+          { text: "Rarely or never.", points: 0 }
+        ]
+      },
+      // Sleep (9, 10, 11)
+      {
+        category: categories.SLEEP,
+        text: "How many hours of sleep do you average per night, and how do you feel when you wake up?",
+        options: [
+          { text: "7 to 9 hours, and I wake up rested and ready without an alarm.", points: 10 },
+          { text: "6 to 7 hours, and I wake up feeling slightly groggy or tired.", points: 5 },
+          { text: "Under 6 hours, or I wake up absolutely exhausted daily.", points: 0 }
+        ]
+      },
+      {
+        category: categories.SLEEP,
+        text: "Do you struggle with falling asleep, staying asleep, or running on an active brain late at night?",
+        options: [
+          { text: "Rarely — I fall asleep in 15 mins and sleep through the night.", points: 10 },
+          { text: "Occasionally — I have nights where I toss and turn or wake up at 3 AM.", points: 5 },
+          { text: "Almost every night — I am 'wired but tired' and have chronic insomnia.", points: 0 }
+        ]
+      },
+      {
+        category: categories.SLEEP,
+        text: "Do you have a consistent winding-down routine (no screens, dim lights) at least 30 minutes before sleep?",
+        options: [
+          { text: "Yes, I disconnect from screens and allow my mind to settle.", points: 10 },
+          { text: "Sometimes, but I often check my phone in bed or watch TV right before sleep.", points: 5 },
+          { text: "Never — my screen is the last thing I see before closing my eyes.", points: 0 }
+        ]
+      },
+      // Stress (12, 13, 14)
+      {
+        category: categories.STRESS,
+        text: "How often do you feel overwhelmed, anxious, or unable to quiet your thoughts during the day?",
+        options: [
+          { text: "Rarely — I handle pressure well and stay present.", points: 10 },
+          { text: "Occasionally — I have periods of high stress, but I can shake them off.", points: 5 },
+          { text: "Almost constantly — I feel like I'm running on cortisol all day long.", points: 0 }
+        ]
+      },
+      {
+        category: categories.STRESS,
+        text: "Do you actively practice any stress recovery tools (breathwork, meditation, walks in nature) daily?",
+        options: [
+          { text: "Yes, I dedicate 5-15 minutes to deliberate recovery every day.", points: 10 },
+          { text: "Occasionally, but not consistently enough to make it a routine.", points: 5 },
+          { text: "Never — I just power through until my day ends.", points: 0 }
+        ]
+      },
+      {
+        category: categories.STRESS,
+        text: "When an unexpected stressor hits, how quickly does your body and mind return to a calm state?",
+        options: [
+          { text: "Within minutes — I can ground myself and reset.", points: 10 },
+          { text: "Within a few hours — it lingers, but I eventually settle.", points: 5 },
+          { text: "It stays with me all day, affects my sleep, and triggers physical symptoms.", points: 0 }
+        ]
+      }
+    ];
+
+    // Recommendations database based on lowest scoring pillar
+    const recommendations = {
+      'Community': {
+        title: "Your Community pillar needs attention",
+        desc: "Human connection is an essential biological signal of safety. When you feel isolated, your body runs on high alert, elevating baseline inflammation and cortisol, making it harder to recover and sleep.",
+        challengeTitle: "The 'No-Work Connection' Challenge",
+        challengeDesc: "Schedule one 15-minute phone call, coffee, or walk with a friend or family member this week. The only rule: you are not allowed to discuss work, stress, or your to-do list. Focus purely on catching up and listening."
+      },
+      'Nutrition': {
+        title: "Your Nutrition pillar is leaking energy",
+        desc: "If you experience afternoon crashes and constant cravings, your blood sugar is likely on a rollercoaster. Highly processed foods fuel cellular inflammation and cause severe energy fluctuations, leaving you relying on caffeine.",
+        challengeTitle: "The 'Whole Foods Swap' Challenge",
+        challengeDesc: "For the next 7 days, replace one processed snack or convenience meal per day with a single-ingredient whole food alternative. Think a handful of raw nuts, a piece of fruit, or a hard-boiled egg. Simple, clean cellular fuel."
+      },
+      'Movement': {
+        title: "Your Movement pillar has stalled",
+        desc: "You don't need exhausting workouts to feel energetic. In fact, intense exercise on top of chronic fatigue only increases cortisol. Consistent, low-intensity daily movement is the key to oxygenating your blood and building mitochondria.",
+        challengeTitle: "The 'Two-Day Rule' Walk Protocol",
+        challengeDesc: "Commit to a 10-minute continuous walk outside in daylight every single day. The goal is consistency. If you miss a day, it's okay, but apply the Two-Day Rule: never miss two days in a row."
+      },
+      'Sleep': {
+        title: "Your Sleep pillar is your primary bottleneck",
+        desc: "Sleep is the master reset switch for your hormonal system, insulin sensitivity, and brain waste clearance. If sleep is broken, it acts as a ceiling on every other pillar — you cannot out-exercise or out-eat poor sleep.",
+        challengeTitle: "The 'Screen-Free Buffer' Challenge",
+        challengeDesc: "Commit to turning off all screens (phone, laptop, TV) 30 minutes before your target bedtime. Place your phone charger across the room. Replace screen time with reading a fiction book, journaling, or stretching."
+      },
+      'De-Stress': {
+        title: "Your De-Stress pillar is overloaded",
+        desc: "Stress itself is not the problem — the lack of recovery is. If you run on adrenaline and cortisol all day without deliberate periods of down-regulation, your nervous system remains stuck in fight-or-flight, burning out your adrenals.",
+        challengeTitle: "The '2-Minute Box Breathing' Habit",
+        challengeDesc: "Twice a day (once when you start work, once in the late afternoon), set a timer for 2 minutes. Close your eyes and perform Box Breathing: Inhale for 4 seconds, hold for 4 seconds, exhale for 4 seconds, hold empty for 4 seconds. Repeat."
+      }
+    };
+
+    // State Variables
+    let currentQuestionIndex = 0;
+    let scores = {
+      'Community': 0,
+      'Nutrition': 0,
+      'Movement': 0,
+      'Sleep': 0,
+      'De-Stress': 0
+    };
+    let userAnswers = [];
+    let userName = "";
+    let userLastName = "";
+    let userEmail = "";
+
+    // DOM Elements
+    const viewLanding = document.getElementById('view-landing');
+    const viewQuiz = document.getElementById('view-quiz');
+    const viewLead = document.getElementById('view-lead');
+    const viewResults = document.getElementById('view-results');
+    
+    const progressContainer = document.getElementById('progress-container');
+    const progressFill = document.getElementById('progress-fill');
+    const progressStepText = document.getElementById('progress-step-text');
+    const progressCategoryText = document.getElementById('progress-category-text');
+
+    const startBtn = document.getElementById('start-btn');
+    const questionCategory = document.getElementById('question-category');
+    const categoryDot = document.getElementById('category-dot');
+    const categoryName = document.getElementById('category-name');
+    const questionText = document.getElementById('question-text');
+    const optionsGrid = document.getElementById('options-grid');
+
+    const leadForm = document.getElementById('lead-form');
+    const leadFirstInput = document.getElementById('lead-first');
+    const leadLastInput = document.getElementById('lead-last');
+    const leadEmailInput = document.getElementById('lead-email');
+
+    // Event Listeners
+    startBtn.addEventListener('click', startQuiz);
+    leadForm.addEventListener('submit', handleLeadSubmit);
+
+    // Functions
+    function startQuiz() {
+      userName = "";
+      userLastName = "";
+      userEmail = "";
+      userAnswers = [];
+      currentQuestionIndex = 0;
+      scores = {
+        'Community': 0,
+        'Nutrition': 0,
+        'Movement': 0,
+        'Sleep': 0,
+        'De-Stress': 0
+      };
+
+      viewLanding.classList.remove('active');
+      viewQuiz.classList.add('active');
+      progressContainer.classList.add('visible');
+      
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = questions[currentQuestionIndex];
+      
+      // Update progress
+      const progressPercent = (currentQuestionIndex / questions.length) * 100;
+      progressFill.style.width = `${progressPercent}%`;
+      progressStepText.innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+      progressCategoryText.innerText = q.category.name;
+
+      // Update category details
+      categoryName.innerText = q.category.name;
+      categoryDot.style.backgroundColor = q.category.color;
+      questionCategory.style.color = q.category.color;
+
+      // Set question text
+      questionText.innerText = q.text;
+
+      // Render options
+      optionsGrid.innerHTML = '';
+      q.options.forEach((opt, idx) => {
+        const optCard = document.createElement('button');
+        optCard.className = 'option-card';
+        optCard.innerHTML = `
+          <div class="option-indicator"></div>
+          <div class="option-text-content">${opt.text}</div>
+        `;
+        optCard.addEventListener('click', () => selectOption(opt.points));
+        optionsGrid.appendChild(optCard);
+      });
+    }
+
+    function selectOption(points) {
+      const q = questions[currentQuestionIndex];
+      
+      // Add points to the specific category
+      scores[q.category.name] += points;
+      userAnswers.push({ questionIndex: currentQuestionIndex, points: points });
+
+      currentQuestionIndex++;
+      
+      if (currentQuestionIndex < questions.length) {
+        // Next question with transition
+        viewQuiz.classList.remove('active');
+        setTimeout(() => {
+          showQuestion();
+          viewQuiz.classList.add('active');
+        }, 150);
+      } else {
+        // Complete Quiz -> Show Lead Capture
+        progressFill.style.width = '100%';
+        viewQuiz.classList.remove('active');
+        progressContainer.classList.remove('visible');
+        setTimeout(() => {
+          viewLead.classList.add('active');
+        }, 150);
+      }
+    }
+
+    function handleLeadSubmit() {
+      userName = leadFirstInput.value.trim();
+      userLastName = leadLastInput.value.trim();
+      userEmail = leadEmailInput.value.trim();
+      
+      if (!userName || !userLastName || !userEmail) return;
+
+      // Disable button during submission
+      const submitBtn = document.getElementById('submit-lead-btn');
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Submitting...';
+
+      // Setup integration configs matching your website
+      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_2EEYZtqMZYHefwmCZCxG24fr6A0ttSPr_nRAycobTQbsCMXJ182Yotq2fyaAmCkx-g/exec';
+
+      // 1. Calculate overall score & lowest pillar for reporting
+      const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
+      const capacityPct = Math.round((totalScore / 150) * 100);
+      const pillars = ['Community', 'Nutrition', 'Movement', 'Sleep', 'De-Stress'];
+      let lowestPillar = 'Sleep';
+      let lowestScore = 999;
+      pillars.forEach(pillar => {
+        if (scores[pillar] < lowestScore) {
+          lowestScore = scores[pillar];
+          lowestPillar = pillar;
+        }
+      });
+
+      // 2. Submit to Google Sheets (which proxies to ConvertKit)
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({
+          firstName: userName,
+          lastName: userLastName,
+          email: userEmail,
+          source: 'Vitality Diagnostic Quiz',
+          vitalityScore: capacityPct + '%',
+          weakestPillar: lowestPillar
+        })
+      })
+      .catch(err => console.log('Sheets submission error:', err))
+      .finally(() => {
+        // Move to results view
+        viewLead.classList.remove('active');
+        setTimeout(() => {
+          renderResults();
+          viewResults.classList.add('active');
+        }, 150);
+      });
+    }
+
+    function renderResults() {
+      // Calculate total capacity percentage
+      // Max score per pillar is 30. Total max is 150.
+      const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
+      const capacityPct = Math.round((totalScore / 150) * 100);
+
+      // Render overall score
+      document.getElementById('score-num').innerText = `${capacityPct}%`;
+      
+      // Animate radial ring
+      const ringFill = document.getElementById('score-ring');
+      const strokeDash = 440; // 2 * pi * r (r=70)
+      const offset = strokeDash - (strokeDash * (capacityPct / 100));
+      setTimeout(() => {
+        ringFill.style.strokeDashoffset = offset;
+      }, 300);
+
+      // Render custom greetings
+      document.getElementById('result-greeting').innerText = `Hey ${userName}, here is your Vitality Snapshot`;
+      
+      // Dynamic interpretation of score
+      let interpretation = "";
+      if (capacityPct >= 80) {
+        interpretation = "Incredible work. You have a solid vitality foundation. You're running at high efficiency, but there are a few 1% margins where you can optimize.";
+      } else if (capacityPct >= 50) {
+        interpretation = "You are operating at average capacity, but experience frequent afternoon crashes or physical fatigue. Your baseline is stable, but energy is leaking.";
+      } else {
+        interpretation = "You are running on empty. Cortisol and stress are likely carrying you through, causing burnout, sleep disruption, and energy crashes. Let's fix the leaks.";
+      }
+      document.getElementById('result-interpretation').innerText = interpretation;
+
+      // Render pillar scorecard details and animate fills
+      const pillars = ['Community', 'Nutrition', 'Movement', 'Sleep', 'De-Stress'];
+      let lowestPillar = 'Sleep';
+      let lowestScore = 999;
+
+      pillars.forEach(pillar => {
+        const pScore = scores[pillar]; // max 30
+        const pPercent = Math.round((pScore / 30) * 100);
+        
+        // Track lowest scoring pillar (if equal, prefer sleep/stress as foundation)
+        if (pScore < lowestScore) {
+          lowestScore = pScore;
+          lowestPillar = pillar;
+        }
+
+        // DOM elements
+        const textElem = document.getElementById(`score-${pillar.toLowerCase().replace('de-','')}-text`);
+        const fillElem = document.getElementById(`fill-${pillar.toLowerCase().replace('de-','')}`);
+        
+        if (textElem && fillElem) {
+          textElem.innerText = `${pScore} / 30`;
+          setTimeout(() => {
+            fillElem.style.width = `${pPercent}%`;
+          }, 500);
+        }
+      });
+
+      // Load specific recommendation
+      const rec = recommendations[lowestPillar] || recommendations['Sleep'];
+      document.getElementById('rec-title').innerText = rec.title;
+      document.getElementById('rec-desc').innerText = rec.desc;
+      document.getElementById('rec-challenge-title').innerText = rec.challengeTitle + ':';
+      document.getElementById('rec-challenge-desc').innerText = rec.challengeDesc;
+    }
+  </script>
+</body>
+</html>
