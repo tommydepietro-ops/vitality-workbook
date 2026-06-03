@@ -625,7 +625,7 @@
         <div class="progress-fill" id="progress-fill"></div>
       </div>
       <div class="progress-text">
-        <span id="progress-step-text">Question 1 of 15</span>
+        <span id="progress-step-text">Question 1 of 25</span>
         <span id="progress-category-text">Community</span>
       </div>
     </div>
@@ -748,7 +748,7 @@
                   <span class="pillar-row-color-dot" style="background-color: var(--color-community)"></span>
                   Community
                 </span>
-                <span class="pillar-row-score" id="score-community-text">0 / 30</span>
+                <span class="pillar-row-score" id="score-community-text">0 / 50</span>
               </div>
               <div class="pillar-row-track">
                 <div class="pillar-row-fill" id="fill-community" style="background-color: var(--color-community)"></div>
@@ -762,7 +762,7 @@
                   <span class="pillar-row-color-dot" style="background-color: var(--color-nutrition)"></span>
                   Nutrition
                 </span>
-                <span class="pillar-row-score" id="score-nutrition-text">0 / 30</span>
+                <span class="pillar-row-score" id="score-nutrition-text">0 / 50</span>
               </div>
               <div class="pillar-row-track">
                 <div class="pillar-row-fill" id="fill-nutrition" style="background-color: var(--color-nutrition)"></div>
@@ -776,7 +776,7 @@
                   <span class="pillar-row-color-dot" style="background-color: var(--color-movement)"></span>
                   Movement
                 </span>
-                <span class="pillar-row-score" id="score-movement-text">0 / 30</span>
+                <span class="pillar-row-score" id="score-movement-text">0 / 50</span>
               </div>
               <div class="pillar-row-track">
                 <div class="pillar-row-fill" id="fill-movement" style="background-color: var(--color-movement)"></div>
@@ -790,7 +790,7 @@
                   <span class="pillar-row-color-dot" style="background-color: var(--color-sleep)"></span>
                   Sleep
                 </span>
-                <span class="pillar-row-score" id="score-sleep-text">0 / 30</span>
+                <span class="pillar-row-score" id="score-sleep-text">0 / 50</span>
               </div>
               <div class="pillar-row-track">
                 <div class="pillar-row-fill" id="fill-sleep" style="background-color: var(--color-sleep)"></div>
@@ -804,7 +804,7 @@
                   <span class="pillar-row-color-dot" style="background-color: var(--color-stress)"></span>
                   De-Stress
                 </span>
-                <span class="pillar-row-score" id="score-stress-text">0 / 30</span>
+                <span class="pillar-row-score" id="score-stress-text">0 / 50</span>
               </div>
               <div class="pillar-row-track">
                 <div class="pillar-row-fill" id="fill-stress" style="background-color: var(--color-stress)"></div>
@@ -858,7 +858,7 @@
     };
 
     const questions = [
-      // Community (0, 1, 2)
+      // Community (0 to 4)
       {
         category: categories.COMMUNITY,
         text: "Do you have a core circle of friends or family you can call in a crisis without hesitation?",
@@ -886,13 +886,31 @@
           { text: "No, I feel mostly disconnected from the people around me.", points: 0 }
         ]
       },
-      // Nutrition (3, 4, 5)
+      {
+        category: categories.COMMUNITY,
+        text: "How often do you participate in group gatherings, hobbies, or community events?",
+        options: [
+          { text: "At least weekly (clubs, classes, leagues, volunteer groups).", points: 10 },
+          { text: "1 to 2 times a month.", points: 5 },
+          { text: "Rarely or never.", points: 0 }
+        ]
+      },
+      {
+        category: categories.COMMUNITY,
+        text: "Do you feel comfortable opening up to someone in your life about your stresses or personal struggles?",
+        options: [
+          { text: "Yes, multiple close friends or family members.", points: 10 },
+          { text: "Only one specific person.", points: 5 },
+          { text: "No, I generally keep my struggles to myself.", points: 0 }
+        ]
+      },
+      // Nutrition (5 to 9)
       {
         category: categories.NUTRITION,
         text: "How often do you experience physical energy crashes or brain fog 1 to 2 hours after meals?",
         options: [
           { text: "Rarely — my energy remains stable and clean.", points: 10 },
-          { text: "Occasionally, particularly after heavy lunches or treats.", points: 5 },
+          { text: "Occasionally, particularly after heavy lunches or sugary treats.", points: 5 },
           { text: "Almost every single day — I regularly need caffeine to push through.", points: 0 }
         ]
       },
@@ -914,7 +932,25 @@
           { text: "Extremely erratic eating patterns, and constant strong cravings.", points: 0 }
         ]
       },
-      // Movement (6, 7, 8)
+      {
+        category: categories.NUTRITION,
+        text: "Do you regularly eat late at night (within 2 hours of bedtime) or graze constantly throughout the day?",
+        options: [
+          { text: "No, I finish eating at least 3 hours before bed and avoid constant snacking.", points: 10 },
+          { text: "Occasionally, or I snack mildly between meals.", points: 5 },
+          { text: "Yes, I regularly eat late snacks or graze all day long.", points: 0 }
+        ]
+      },
+      {
+        category: categories.NUTRITION,
+        text: "How consistently do you drink clean, plain water throughout the day (excluding sodas, sweet drinks, or heavy coffee)?",
+        options: [
+          { text: "Very consistent — I drink plenty of water and feel well-hydrated.", points: 10 },
+          { text: "Moderate — I drink water but often go hours forgetting to hydrate.", points: 5 },
+          { text: "Rarely — I rely mostly on coffee, sodas, or energy drinks.", points: 0 }
+        ]
+      },
+      // Movement (10 to 14)
       {
         category: categories.MOVEMENT,
         text: "How much active, continuous physical movement (like walking, running, gym, sports) do you get daily?",
@@ -942,7 +978,25 @@
           { text: "Rarely or never.", points: 0 }
         ]
       },
-      // Sleep (9, 10, 11)
+      {
+        category: categories.MOVEMENT,
+        text: "How many minutes of moderate cardiovascular exercise (e.g. brisk walking, cycling, light jog) do you get per week?",
+        options: [
+          { text: "150 minutes or more (about 20-30 mins a day).", points: 10 },
+          { text: "30 to 149 minutes.", points: 5 },
+          { text: "Under 30 minutes total.", points: 0 }
+        ]
+      },
+      {
+        category: categories.MOVEMENT,
+        text: "Do you engage in structured resistance or strength training (bodyweight, weights, bands)?",
+        options: [
+          { text: "Yes, 3 or more times per week.", points: 10 },
+          { text: "Yes, 1 to 2 times per week.", points: 5 },
+          { text: "Rarely or never.", points: 0 }
+        ]
+      },
+      // Sleep (15 to 19)
       {
         category: categories.SLEEP,
         text: "How many hours of sleep do you average per night, and how do you feel when you wake up?",
@@ -970,7 +1024,25 @@
           { text: "Never — my screen is the last thing I see before closing my eyes.", points: 0 }
         ]
       },
-      // Stress (12, 13, 14)
+      {
+        category: categories.SLEEP,
+        text: "Do you get direct outdoor sunlight in your eyes within 30 minutes of waking up?",
+        options: [
+          { text: "Yes, consistently (helps set my morning circadian clock).", points: 10 },
+          { text: "Sometimes, when it is convenient or sunny.", points: 5 },
+          { text: "Rarely or never — I stay indoors under artificial light.", points: 0 }
+        ]
+      },
+      {
+        category: categories.SLEEP,
+        text: "Do you go to sleep and wake up at roughly the exact same times every day (even on weekends)?",
+        options: [
+          { text: "Yes, very consistent schedule (within a 30-minute window).", points: 10 },
+          { text: "Somewhat — I shift my wake times by 1-2 hours on weekends.", points: 5 },
+          { text: "No, my sleep schedule is completely erratic and inconsistent.", points: 0 }
+        ]
+      },
+      // Stress (20 to 24)
       {
         category: categories.STRESS,
         text: "How often do you feel overwhelmed, anxious, or unable to quiet your thoughts during the day?",
@@ -996,6 +1068,24 @@
           { text: "Within minutes — I can ground myself and reset.", points: 10 },
           { text: "Within a few hours — it lingers, but I eventually settle.", points: 5 },
           { text: "It stays with me all day, affects my sleep, and triggers physical symptoms.", points: 0 }
+        ]
+      },
+      {
+        category: categories.STRESS,
+        text: "Do you experience physical symptoms of stress, such as tight shoulders, jaw-clenching, or shallow breathing?",
+        options: [
+          { text: "Rarely or never.", points: 10 },
+          { text: "Occasionally, during intense work sessions.", points: 5 },
+          { text: "Almost constantly throughout the day.", points: 0 }
+        ]
+      },
+      {
+        category: categories.STRESS,
+        text: "Do you block out non-negotiable time each week for pure rest, play, or fun with no specific goal?",
+        options: [
+          { text: "Yes, I make fun and recovery a top priority.", points: 10 },
+          { text: "Occasionally, when my schedule permits.", points: 5 },
+          { text: "Never — I feel guilty when I'm not doing something productive.", points: 0 }
         ]
       }
     ];
@@ -1172,7 +1262,7 @@
 
       // 1. Calculate overall score & lowest pillar for reporting
       const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
-      const capacityPct = Math.round((totalScore / 150) * 100);
+      const capacityPct = Math.round((totalScore / 250) * 100);
       const pillars = ['Community', 'Nutrition', 'Movement', 'Sleep', 'De-Stress'];
       let lowestPillar = 'Sleep';
       let lowestScore = 999;
@@ -1210,9 +1300,9 @@
 
     function renderResults() {
       // Calculate total capacity percentage
-      // Max score per pillar is 30. Total max is 150.
+      // Max score per pillar is 50. Total max is 250.
       const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
-      const capacityPct = Math.round((totalScore / 150) * 100);
+      const capacityPct = Math.round((totalScore / 250) * 100);
 
       // Render overall score
       document.getElementById('score-num').innerText = `${capacityPct}%`;
@@ -1245,8 +1335,8 @@
       let lowestScore = 999;
 
       pillars.forEach(pillar => {
-        const pScore = scores[pillar]; // max 30
-        const pPercent = Math.round((pScore / 30) * 100);
+        const pScore = scores[pillar]; // max 50
+        const pPercent = Math.round((pScore / 50) * 100);
         
         // Track lowest scoring pillar (if equal, prefer sleep/stress as foundation)
         if (pScore < lowestScore) {
@@ -1259,7 +1349,7 @@
         const fillElem = document.getElementById(`fill-${pillar.toLowerCase().replace('de-','')}`);
         
         if (textElem && fillElem) {
-          textElem.innerText = `${pScore} / 30`;
+          textElem.innerText = `${pScore} / 50`;
           setTimeout(() => {
             fillElem.style.width = `${pPercent}%`;
           }, 500);
